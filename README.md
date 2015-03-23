@@ -1,3 +1,5 @@
-# My Chrome Extensions
+## My Chrome Extensions
 
-## first-extension
+### first-extension
+
+Just for getting some knowledge for creating chrome extensions.

@@ -5,14 +5,21 @@
 	"manifest_version": 2,
 	"default_locale": "en",
 	"icons": {
-		"128": "icon128.png",
-		"48": "icon48.png",
-		"16": "icon16.png"
+		"128": "icon2_48x48.png",
+		"48": "icon2_48x48.png",
+		"16": "icon2_48x48.png"
 	},
+	"content_scripts": [
+	{
+		"matches": ["http://www.google.com/*"],
+		"css": ["styles.css"],
+		"js": ["script.js"]
+	}
+	],
 	"offline_enabled": true,
 	"browser_action": {
 		"default_title": "title_1",
-		"default_icon": "icon128.png",
+		"default_icon": "icon2_48x48.png",
 		"default_popup": "popup.html"
 	},
 	"optional_permissions": ["tabs"],
