@@ -1,6 +1,5 @@
 window.addEventListener("load", function () {
 	// chrome.storage.get('value',function(val){
-		// console.log(chrome.storage)
 		if(localStorage["mysetting"]){
 			document.getElementById("input_box_1").value = localStorage["mysetting"];
 		}
@@ -39,6 +38,5 @@ function storeTheData() {
 			message: "Data saved successfully.",
 			iconUrl: "success_icon_64.png"
 		},function(){});
-		// console.log(chrome.storage)
 	// });
 }
