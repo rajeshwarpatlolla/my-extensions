@@ -26,7 +26,8 @@
 	"options_page": "options.html",
 	"options_ui": {
 		"chrome_style": true,
-		"page": "options.html"
+		"page": "options.html",
+		"open_in_tab": false
 	},
-	"permissions":["notifications","tabs"]
+	"permissions":["notifications", "tabs", "storage"]
 }
