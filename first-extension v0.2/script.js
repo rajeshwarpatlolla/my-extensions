@@ -1,7 +1,7 @@
 window.addEventListener("load", function () {
 	// chrome.storage.get('value',function(val){
-		if(localStorage["mysetting"]){
-			document.getElementById("input_box_1").value = localStorage["mysetting"];
+		if(localStorage["input_val"]){
+			document.getElementById("input_box_1").value = localStorage["input_val"];
 		}
 	// });
 	// document.getElementById("input_box_1").value = ;
@@ -11,8 +11,8 @@ document.getElementById("save-btn").addEventListener("click",storeTheData);
 document.getElementById("clear-btn").addEventListener("click",clearTheData);
 
 function clearTheData () {
-	localStorage["mysetting"] = "";
-	document.getElementById("input_box_1").value = localStorage["mysetting"];
+	localStorage["input_val"] = "";
+	document.getElementById("input_box_1").value = localStorage["input_val"];
 }
 
 function storeTheData() {
@@ -28,7 +28,7 @@ function storeTheData() {
 		return;
 	}
 	// Save it using the Chrome extension storage API.
-	localStorage["mysetting"] = ipVal;
+	localStorage["input_val"] = ipVal;
 
 	// chrome.storage.sync.set({'value': ipVal}, function() {
 
