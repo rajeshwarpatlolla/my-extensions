@@ -13,7 +13,6 @@ window.addEventListener("load", function () {
 			document.getElementById("input_box_1").value = localStorage["input_val"];
 		}
 	// });
-	// document.getElementById("input_box_1").value = ;
 });
 
 document.getElementById("save-btn").addEventListener("click",storeTheData);
