@@ -34,7 +34,6 @@ function storeTheData() {
 	localStorage["input_val"] = ipVal;
 
 	// chrome.storage.sync.set({'value': ipVal}, function() {
-
 		getNotification('Success!', 'Data saved successfully.', 'success_icon_64.png');
 	// });
 }
