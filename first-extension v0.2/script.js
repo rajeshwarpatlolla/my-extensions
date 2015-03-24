@@ -8,19 +8,18 @@ function getNotification (type, msg, img) {
 }
 
 window.addEventListener("load", function () {
-	// chrome.storage.get('value',function(val){
-		if(localStorage["input_val"]){
-			document.getElementById("input_box_1").value = localStorage["input_val"];
-		}
-	// });
+	chrome.storage.sync.get('value',function(result){
+		document.getElementById("input_box_1").value = result.value || '';
+	});
 });
 
 document.getElementById("save-btn").addEventListener("click",storeTheData);
 document.getElementById("clear-btn").addEventListener("click",clearTheData);
 
 function clearTheData () {
-	localStorage["input_val"] = "";
-	document.getElementById("input_box_1").value = localStorage["input_val"];
+	chrome.storage.sync.remove('value',function(){
+		document.getElementById("input_box_1").value = '';
+	});
 }
 
 function storeTheData() {
@@ -30,10 +29,8 @@ function storeTheData() {
 		getNotification('Warning!', 'Please enter some value.', 'warning_icon_64.png');
 		return;
 	}
-	// Save it using the Chrome extension storage API.
-	localStorage["input_val"] = ipVal;
 
-	// chrome.storage.sync.set({'value': ipVal}, function() {
+	chrome.storage.sync.set({'value': ipVal}, function() {
 		getNotification('Success!', 'Data saved successfully.', 'success_icon_64.png');
-	// });
+	});
 }
