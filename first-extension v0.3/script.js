@@ -2,6 +2,14 @@ var app = angular.module('myExtension', []);
 
 app.controller('MainController', function($scope) {
 
+	$scope.reminders = [
+		{name:'1', message:'msg 1', time:'9am'},
+		{name:'2', message:'msg 2', time:'10am'},
+		{name:'3', message:'msg 3', time:'11am'},
+		{name:'4', message:'msg 4', time:'12pm'},
+		{name:'5', message:'msg 5', time:'1pm'}
+	];
+
 	function getNotification (type, msg, img) {
 		chrome.notifications.create(type,{
 			type: "basic",
@@ -46,7 +54,7 @@ app.controller('MainController', function($scope) {
 	function clearTheData () {
 		getterSetters.removeValue('value',function(){
 			document.getElementById("input_box_1").value = '';
-			getNotification('Success!', 'Data cleared successfully.', 'success_icon_64.png');
+			getNotification('Success!', 'Data cleared successfully.', 'images/accept-48.png');
 		});
 	}
 
@@ -54,12 +62,12 @@ app.controller('MainController', function($scope) {
 		var ipVal = document.getElementById("input_box_1").value;
 
 		if (!ipVal) {
-			getNotification('Warning!', 'Please enter some value.', 'warning_icon_64.png');
+			getNotification('Warning!', 'Please enter some value.', 'images/warning-48.png');
 			return;
 		}
 
 		getterSetters.setValue({'value': ipVal}, function() {
-			getNotification('Success!', 'Data saved successfully.', 'success_icon_64.png');
+			getNotification('Success!', 'Data saved successfully.', 'images/accept-48.png');
 		});
 	}
 
