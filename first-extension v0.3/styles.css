@@ -1,11 +1,11 @@
 body {
 	font-family: Tahoma, Geneva, sans-serif;
-	background-color: #f6f6f6;
+	background-color: #fafafa;
 	margin: 4px;
 }
 .parent-div {
 	padding: 5px;
-	width: 200px;
+	width: 280px;
 	height: 100%;
 }
 .btn {
@@ -65,21 +65,17 @@ body {
 .full-width {
 	width: 100%;
 }
-.width-12 {
-	width: 12%;
-	display: inline-block;
+.width-15 {
+	width: 15%;
 }
 .width-25 {
 	width: 25%;
-	display: inline-block;
 }
-.width-30 {
-	width: 30%;
-	display: inline-block;
+.width-50 {
+	width: 50%;
 }
-.width-40 {
-	width: 40%;
-	display: inline-block;
+.width-60 {
+	width: 60%;
 }
 .bold-text {
 	font-weight: bold;
@@ -87,3 +83,69 @@ body {
 .padding-tb-5 {
 	padding: 5px 0;
 }
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+.btn-hover:hover{
+	cursor: pointer;
+}
+.border-bottom-1px {
+	border-bottom: 1px solid #aaa;
+}
+.border-right-1px {
+	border-right: 1px solid #aaa;
+}
+
+
+.table{
+	display: table;
+}
+.table-title{
+	display: table-caption;
+	text-align: center;
+	font-weight: bold;
+}
+.table-heading{
+	display: table-row;
+	font-weight: bold;
+	text-align: center;
+}
+.table-row{
+	display: table-row;
+}
+.table-cell {
+	display: table-cell;
+	border-bottom: 1px solid #aaa;
+  	border-right: 1px solid #bbb;
+	padding-left: 2px;
+	padding-right: 2px;
+	vertical-align: middle;
+}
+.valign-middle {
+	vertical-align: middle;
+}
+
+.no-right-border {
+	border-right: none;
+}
+.descriptionArea {
+  min-height: 50px;
+  max-height: 100px;
+  width: 100% !important;
+}
+.label {
+	font-weight: bold;
+}
+.errorMsg {
+	font-size: 11px;
+	color: #c55;
+}
+.disabledBtn {
+	background: #aaa;
+}
+.disabledBtn:hover {
+	background: #aaa;
+};
