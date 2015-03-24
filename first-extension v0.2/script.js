@@ -7,17 +7,45 @@ function getNotification (type, msg, img) {
 	},function(){});
 }
 
+var ob = {};
+
+
+
+var getterSetters = {
+	result : {},
+	getValue : function(key, callback){
+		chrome.storage.sync.get(key,function(res){
+			callback(res);
+		});
+	},
+	setValue : function(obj, callback){
+		chrome.storage.sync.set({value:obj.value},function(){
+			callback();
+		});
+	},
+	removeValue : function (key, callback) {
+		chrome.storage.sync.remove(key,function(){
+			callback()
+		});
+	},
+	clearValue : function(key, callback){
+		chrome.storage.sync.clear(key,function(){
+			callback();
+		});
+	}
+};
+
 window.addEventListener("load", function () {
-	chrome.storage.sync.get('value',function(result){
-		document.getElementById("input_box_1").value = result.value || '';
-	});
+	getterSetters.getValue('value', function(res) {
+		document.getElementById("input_box_1").value = res.value || '';	
+	});	
 });
 
 document.getElementById("save-btn").addEventListener("click",storeTheData);
 document.getElementById("clear-btn").addEventListener("click",clearTheData);
 
 function clearTheData () {
-	chrome.storage.sync.remove('value',function(){
+	getterSetters.removeValue('value',function(){
 		document.getElementById("input_box_1").value = '';
 	});
 }
@@ -30,7 +58,8 @@ function storeTheData() {
 		return;
 	}
 
-	chrome.storage.sync.set({'value': ipVal}, function() {
+	getterSetters.setValue({'value': ipVal}, function() {
 		getNotification('Success!', 'Data saved successfully.', 'success_icon_64.png');
 	});
 }
+
