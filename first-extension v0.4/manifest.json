@@ -1,7 +1,7 @@
 {
 	"name":"first-extension",
 	"description":"My first extension",
-	"version":"0.3",
+	"version":"0.4",
 	"manifest_version": 2,
 	"default_locale": "en",
 	"icons": {
