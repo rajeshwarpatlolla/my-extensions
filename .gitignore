@@ -1,0 +1,5 @@
+# Ignores the files mentioned here.
+# Created by Rajeshar
+
+## Directory-based project format:
+.idea/

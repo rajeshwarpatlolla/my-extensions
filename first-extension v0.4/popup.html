@@ -8,7 +8,7 @@
 	<div class="parent-div">
 		<h3>Reminders <span ng-click="addNewReminder()"><img src="images/add-16.png" class="right btn-hover" title="Add new reminder"></span></h3>
 		<hr/>
-		<div class="addNewReminderSection" ng-show='addNewReminderVal'>
+		<div class="addNewReminderSection" ng-show='addNewReminderVal' id="addNewreminderDiv">
 			<form name="addNewForm">
 				<h4>Add new reminder</h4>
 				<div class="">
@@ -32,7 +32,7 @@
 				<div class="width-25 padding-tb-5 table-cell">Time</div>
 				<div class="width-15 padding-tb-5 table-cell no-right-border" colspan="2">Actions</div>
 			</div>
-			<div ng-repeat="reminder in reminders" class="full-width table-row">
+			<div ng-repeat="reminder in reminders track by reminder.id" class="full-width table-row">
 				<div class="width-60 table-cell">{{reminder.message}}</div>
 				<div class="width-25 table-cell">{{reminder.time}}</div>
 				<div class="width-15 table-cell btn-hover no-right-border">
@@ -41,7 +41,7 @@
 				</div>
 			</div>
 		</div>
-		<div ng-hide="true">
+		<div ng-hide="false">
 			<div class="padding-tb-5"><input type="text" id="input_box_1" class="full-width"/></div>
 			<button id="save-btn" class="btn margin-top-5">Save</button>
 			<button id="clear-btn" class="btn margin-top-5">Clear</button>
