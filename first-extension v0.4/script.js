@@ -40,6 +40,10 @@ app.controller('MainController', function($scope) {
 		$scope.addNewReminderVal = true;
 	};
 	
+	$scope.cancel = function(){
+		$scope.addNewReminderVal = false;
+	};
+
 	$scope.submitNewReminder = function(newReminder){
 		var highestId = 10;
 		angular.forEach($scope.reminders, function(val, key){
@@ -53,10 +57,6 @@ app.controller('MainController', function($scope) {
 			getNotification('Success!', 'Reminder added successfully.', 'images/accept-48.png');
 			$scope.addNewReminderVal = false;
 		});
-	};
-
-	$scope.cancel = function(){
-		$scope.addNewReminderVal = false;
 	};
 
 	$scope.editReminder = function(reminder){
