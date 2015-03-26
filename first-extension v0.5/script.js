@@ -5,6 +5,7 @@ app.controller('MainController', function($scope) {
 	$scope.reminders = [];
 
 	$scope.addNewReminderVal = false;
+	$scope.count = 0;
 
 	var getterSetters = {
 		getValue : function(key, callback){
@@ -12,10 +13,16 @@ app.controller('MainController', function($scope) {
 				callback(res);
 			});
 		},
-		setValue : function(obj, callback){
-			chrome.storage.sync.set({reminders:obj.reminders},function(){
-				callback();
-			});
+		setValue : function(key, obj, callback){
+			if(key === 'reminders'){
+				chrome.storage.sync.set({reminders:obj.reminders},function(){
+					callback();
+				});
+			}else if(key === 'count'){
+				chrome.storage.sync.set({count:obj.count},function(){
+					callback();
+				});
+			}
 		},
 		removeValue : function (key, callback) {
 			chrome.storage.sync.remove(key,function(){
@@ -29,33 +36,47 @@ app.controller('MainController', function($scope) {
 		}
 	};
 
-	getterSetters.getValue('reminders', function(res) {
-		console.log(res);
-		$scope.$apply(function(){
-			$scope.reminders = res.reminders;	
-		})
-	});	
+	getterSetters.getValue('count', function(res) {
+		if(typeof res.count === 'undefined'){
+			getterSetters.setValue('count', {'count':0}, function() {});
+		}else if(typeof res.count === "number"){
+			$scope.count = res.count;
+		}
+		
+		if($scope.count > 0){
+			getterSetters.getValue('reminders', function(res) {
+				$scope.$apply(function(){
+					$scope.reminders = res.reminders;	
+				})
+			});
+		}
+	});
 
 	$scope.addNewReminder = function(){
 		$scope.addNewReminderVal = true;
 	};
-	
+
 	$scope.cancel = function(){
 		$scope.addNewReminderVal = false;
 	};
-
+	
 	$scope.submitNewReminder = function(newReminder){
 		var highestId = 10;
+		if($scope.count === 0){
+			$scope.reminders = [];
+		}
+
 		angular.forEach($scope.reminders, function(val, key){
 			if(highestId < val.id){
 				highestId = val.id;
 			}
 		});
 
-		$scope.reminders.push({id:highestId+1,message:newReminder.description,time:newReminder.time});
-		getterSetters.setValue({'reminders': $scope.reminders}, function() {
+		$scope.reminders.push({id:+(new Date()) + highestId,message:newReminder.description,time:newReminder.time});
+		getterSetters.setValue('reminders',{'reminders': $scope.reminders}, function() {
 			getNotification('Success!', 'Reminder added successfully.', 'images/accept-48.png');
-			$scope.addNewReminderVal = false;
+			$scope.addNewReminderVal = false;			
+			getterSetters.setValue('count', {'count':1}, function(res) {});
 		});
 	};
 
@@ -73,7 +94,7 @@ app.controller('MainController', function($scope) {
 		});
 
 		$scope.reminders.splice(index,1);
-		getterSetters.setValue({'reminders': $scope.reminders}, function() {
+		getterSetters.setValue('reminders', {reminders: $scope.reminders}, function() {
 			getNotification('Success!', 'Reminder removed successfully.', 'images/accept-48.png');
 			$scope.addNewReminderVal = false;
 		});
