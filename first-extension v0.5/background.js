@@ -18,7 +18,7 @@ function clickHandler () {
 */
 
 chrome.browserAction.setTitle({title:'Remind Me'});
-chrome.browserAction.setBadgeText({text:'12'});
+chrome.browserAction.setBadgeText({text:'1'});
 chrome.browserAction.setBadgeBackgroundColor({color:[100, 100, 150, 255]});
 
 // script to bg page communication method 1
