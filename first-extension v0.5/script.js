@@ -2,11 +2,11 @@ var app = angular.module('myExtension', []);
 
 app.controller('MainController', function($scope) {
 
-// script to bg page communication method 1
+// script to bg page communication method 1 START
 chrome.extension.sendRequest({ msg: "startFunc" });
-// script to bg page communication method 1
+// script to bg page communication method 1 END
 
-// script to bg page communication method 2
+// script to bg page communication method 2 START
 var bkg = chrome.extension.getBackgroundPage();
 bkg.test(function(result) {
 	chrome.notifications.create('',{
@@ -16,7 +16,7 @@ bkg.test(function(result) {
 		iconUrl: "icon-48.png"
 	},function(){});
 });
-// script to bg page communication method 2
+// script to bg page communication method 2 END
 
 $scope.reminders = [];
 
