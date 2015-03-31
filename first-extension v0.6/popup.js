@@ -7,7 +7,7 @@ chrome.extension.sendMessage({ msg: "startFunc" });
 // script to bg page communication method 1 END
 
 // script to bg page communication method 2 START
-var bkg = chrome.extension.getBackgroundPage();
+/*var bkg = chrome.extension.getBackgroundPage();
 bkg.test(function(result) {
 	chrome.notifications.create('',{
 		type: "basic",
@@ -15,7 +15,7 @@ bkg.test(function(result) {
 		message: result,
 		iconUrl: "icon-48.png"
 	},function(){});
-});
+});*/
 // script to bg page communication method 2 END
 
 $scope.reminders = [];

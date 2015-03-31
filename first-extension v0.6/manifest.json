@@ -1,7 +1,7 @@
 {
 	"name":"first-extension",
 	"description":"My first extension",
-	"version":"0.5",
+	"version":"0.6",
 	"manifest_version": 2,
 	"default_locale": "en",
 	"icons": {
@@ -12,7 +12,7 @@
 	"content_scripts": [{
 		"matches": ["http://www.google.com/*"],
 		"css": ["styles.css"],
-		"js": ["script.js"]
+		"js": ["popup.js"]
 	}],
 	"background": {
 		"scripts": ["background.js"],
