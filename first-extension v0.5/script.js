@@ -3,7 +3,7 @@ var app = angular.module('myExtension', []);
 app.controller('MainController', function($scope) {
 
 // script to bg page communication method 1 START
-chrome.extension.sendRequest({ msg: "startFunc" });
+chrome.extension.sendMessage({ msg: "startFunc" });
 // script to bg page communication method 1 END
 
 // script to bg page communication method 2 START

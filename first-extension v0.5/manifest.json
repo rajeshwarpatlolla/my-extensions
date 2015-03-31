@@ -15,7 +15,8 @@
 		"js": ["script.js"]
 	}],
 	"background": {
-		"scripts": ["background.js"]
+		"scripts": ["background.js"],
+    	"persistent": false
 	},
 	"offline_enabled": true,
 	"browser_action": {
