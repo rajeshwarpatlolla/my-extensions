@@ -22,7 +22,7 @@ chrome.browserAction.setBadgeText({text:'1'});
 chrome.browserAction.setBadgeBackgroundColor({color:[100, 100, 150, 255]});
 
 // script to bg page communication method 1
-chrome.extension.onRequest.addListener(
+chrome.extension.onMessage.addListener(
     function(request, sender, sendResponse){
         if(request.msg == "startFunc") {
         	func();
@@ -31,10 +31,14 @@ chrome.extension.onRequest.addListener(
 );
 
 var func = function(){
+	var mode = 'normal';
+	/*if (tab.incognito) {
+		mode = 'in cognito'
+	}*/
     chrome.notifications.create('',{
 		type: "basic",
 		title: "PriceRadar",
-		message: "Item added successfully from poup to bg",
+		message: mode,
 		iconUrl: "icon-48.png"
 	},function(){});
 };
