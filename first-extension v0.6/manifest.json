@@ -32,5 +32,5 @@
 		"open_in_tab": false
 	},
 	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-	"permissions":["notifications", "tabs", "storage", "background"]
+	"permissions":["notifications", "activeTab", "alarms", "tabs", "storage", "background", "*://*.google.com/"]
 }

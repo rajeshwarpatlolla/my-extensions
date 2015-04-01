@@ -3,19 +3,20 @@ var app = angular.module('myExtension', []);
 app.controller('MainController', function($scope) {
 
 // script to bg page communication method 1 START
-chrome.extension.sendMessage({ msg: "startFunc" });
+// chrome.extension.sendMessage({ msg: "startFunc" });
 // script to bg page communication method 1 END
 
 // script to bg page communication method 2 START
-/*var bkg = chrome.extension.getBackgroundPage();
-bkg.test(function(result) {
-	chrome.notifications.create('',{
-		type: "basic",
-		title: "PriceRadar",
-		message: result,
-		iconUrl: "icon-48.png"
-	},function(){});
-});*/
+// chrome.runtime.getBackgroundPage(function(bkg){
+// 	bkg.test(function(result) {
+// 		chrome.notifications.create('',{
+// 			type: "basic",
+// 			title: "PriceRadar",
+// 			message: result,
+// 			iconUrl: "icon-48.png"
+// 		},function(){});
+// 	});	
+// });
 // script to bg page communication method 2 END
 
 $scope.reminders = [];
