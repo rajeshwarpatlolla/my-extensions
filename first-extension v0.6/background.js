@@ -1,19 +1,11 @@
 
-// window.addEventListener("load", clickHandler);
-
-/*setTimeout(function(){
+chrome.alarms.onAlarm.addListener(function() {
 	chrome.notifications.create('',{
-		type: "basic",
-		title: "PriceRadar",
-		message: "Item added successfully bg",
+		type:'basic',
+		title:'Remind Me',
+		message:'my  life',
 		iconUrl: "icon-48.png"
-	},function(){});
-},2000);*/
-
-chrome.browserAction.onClicked.addListener(function(tab) {
-  chrome.tabs.executeScript({
-    code: 'document.body.style.backgroundColor="red"'
-  });
+	}, function(){});
 });
 
 var count = '4';
@@ -21,14 +13,21 @@ chrome.browserAction.setTitle({title:'Remind Me'});
 chrome.browserAction.setBadgeText({text:count});
 chrome.browserAction.setBadgeBackgroundColor({color:[100, 100, 150, 255]});
 
+
+
+
+
+
+
+// ============================================================================
 // script to bg page communication method 1
 chrome.extension.onMessage.addListener(
-    function(request, sender, sendResponse){
-        if(request.msg == "startFunc") {
-        	func();
-        }
-    }
-);
+	function(request, sender, sendResponse){
+		if(request.msg == "startFunc") {
+			func();
+		}
+	}
+	);
 
 var func = function(){
 	var mode = 'normal';
@@ -36,7 +35,7 @@ var func = function(){
 	/*if (chrome.tab.incognito) {
 		mode = 'in cognito'
 	}*/
-    chrome.notifications.create('',{
+	chrome.notifications.create('',{
 		type: "basic",
 		title: "PriceRadar",
 		message: mode,
@@ -50,3 +49,18 @@ function test(func) {
 	func.apply(this, ['foo','bar']);
 }
 // script to bg page communication method 2
+
+
+// window.addEventListener("load", clickHandler);
+
+/*setTimeout(function(){
+	chrome.notifications.create('',{
+		type: "basic",
+		title: "PriceRadar",
+		message: "Item added successfully bg",
+		iconUrl: "icon-48.png"
+	},function(){});
+},2000);*/
+
+// chrome.alarms.create({when: Date.now()+5000});
+// chrome.alarms.clear('', function(){})
