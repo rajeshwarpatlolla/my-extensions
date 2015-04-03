@@ -8,7 +8,7 @@
 	<div class="parent-div">
 		<h3>Reminders <span ng-click="addNewReminder()"><img src="images/add-16.png" class="right btn-hover" title="Add new reminder"></span></h3>
 		<hr/>
-		<div class="{{messageClass}}" ng-model="errorMessage"></div>
+		<div class="{{messageClass}}" ng-bind="errorMessage"></div>
 		<div class="addNewReminderSection" ng-show='addNewReminderVal' id="addNewreminderDiv">
 			<form name="addNewForm">
 				<h4>Add new reminder</h4>
