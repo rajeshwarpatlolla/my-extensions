@@ -42,6 +42,18 @@ app.controller('MainController', function($scope) {
 		});
 	});
 
+	var bgPage = chrome.extension.getBackgroundPage();
+
+	bgPage.setAlarm(2, function(res){
+		console.log(res);
+	});
+	bgPage.getAlarm(2, function(){
+
+	});
+	bgPage.removeAlarm(2, function(){
+		
+	});
+
 	getterSetters.getValue('count', function(res) {
 		if(typeof res.count === 'undefined'){
 			getterSetters.setValue('count', {'count':0}, function() {});
@@ -108,6 +120,7 @@ app.controller('MainController', function($scope) {
 			timeDifference : diff
 		};
 
+		console.log('newReminderObj',newReminderObj);
 
 		if( newReminderObj.timeDifference < 0 ) {
 			showMessage('error','Time has already passed');
@@ -117,9 +130,10 @@ app.controller('MainController', function($scope) {
 				showMessage('success','Reminder added successfully');
 				getterSetters.setValue('count', {'count':1}, function(res) {});
 			});
+
+			$scope.newReminder = {};
+			$scope.addNewReminderVal = false;
 		}
-		$scope.newReminder = {};
-		$scope.addNewReminderVal = false;
 	};
 
 	$scope.editReminder = function(reminder){
@@ -144,6 +158,7 @@ app.controller('MainController', function($scope) {
 	};
 
 	function showMessage(type, msg){
+		console.log('in showMessage',type, msg)
 		$scope.messageClass = type + 'Msg';
 		$scope.errorMessage = msg;
 	}; 
