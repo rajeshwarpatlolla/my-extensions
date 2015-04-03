@@ -1,190 +1,185 @@
 var app = angular.module('myExtension', []);
 
-app.controller('MainController', function($scope) {
-	
-	$scope.reminders = [];
+app.controller('MainController', function ($scope) {
 
-	$scope.addNewReminderVal = false;
-	$scope.count = 0;
+  $scope.reminders = [];
 
-	var getterSetters = {
-		getValue : function(key, callback){
-			chrome.storage.sync.get(key,function(res){
-				callback(res);
-			});
-		},
-		setValue : function(key, obj, callback){
-			if(key === 'reminders'){
-				chrome.storage.sync.set({reminders:obj.reminders},function(){
-					callback();
-				});
-			}else if(key === 'count'){
-				chrome.storage.sync.set({count:obj.count},function(){
-					callback();
-				});
-			}
-		},
-		removeValue : function (key, callback) {
-			chrome.storage.sync.remove(key,function(){
-				callback()
-			});
-		},
-		clearValue : function(key, callback){
-			chrome.storage.sync.clear(key,function(){
-				callback();
-			});
-		}
-	};
+  $scope.addNewReminderVal = false;
+  $scope.count = 0;
 
-	document.getElementById('get-all-reminders-btn').addEventListener('click',function(){
-		getterSetters.getValue('reminders', function(res) {
-			console.log(res.reminders);
-		});
-	});
+  var getterSetters = {
+    getValue: function (key, callback) {
+      chrome.storage.sync.get(key, function (res) {
+        callback(res);
+      });
+    },
+    setValue: function (key, obj, callback) {
+      if (key === 'reminders') {
+        chrome.storage.sync.set({reminders: obj.reminders}, function () {
+          callback();
+        });
+      } else if (key === 'count') {
+        chrome.storage.sync.set({count: obj.count}, function () {
+          callback();
+        });
+      }
+    },
+    removeValue: function (key, callback) {
+      chrome.storage.sync.remove(key, function () {
+        callback()
+      });
+    },
+    clearValue: function (key, callback) {
+      chrome.storage.sync.clear(key, function () {
+        callback();
+      });
+    }
+  };
 
-	var bgPage = chrome.extension.getBackgroundPage();
+  document.getElementById('get-all-reminders-btn').addEventListener('click', function () {
+    getterSetters.getValue('reminders', function (res) {
+      console.log(res.reminders);
+    });
+  });
 
-	bgPage.setAlarm(2, function(res){
-		console.log(res);
-	});
-	bgPage.getAlarm(2, function(){
+  var bgPage = chrome.extension.getBackgroundPage();
 
-	});
-	bgPage.removeAlarm(2, function(){
-		
-	});
+  bgPage.setAlarm(2, function (res) {
+    console.log(res);
+  });
+  bgPage.getAlarm(2, function () {
 
-	getterSetters.getValue('count', function(res) {
-		if(typeof res.count === 'undefined'){
-			getterSetters.setValue('count', {'count':0}, function() {});
-		}else if(typeof res.count === "number"){
-			$scope.count = res.count;
-		}
+  });
+  bgPage.removeAlarm(2, function () {
 
-		if($scope.count > 0){
-			getterSetters.getValue('reminders', function(res) {
-				$scope.$apply(function(){
-					$scope.reminders = res.reminders;	
-				})
-			});
-		}
-	});
+  });
 
-	$scope.addNewReminder = function(){
-		$scope.addNewReminderVal = true;
-	};
+  getterSetters.getValue('count', function (res) {
+    if (typeof res.count === 'undefined') {
+      getterSetters.setValue('count', {'count': 0}, function () {
+      });
+    } else if (typeof res.count === "number") {
+      $scope.count = res.count;
+    }
 
-	$scope.cancel = function(){
-		$scope.addNewReminderVal = false;
-	};
+    if ($scope.count > 0) {
+      getterSetters.getValue('reminders', function (res) {
+        $scope.$apply(function () {
+          $scope.reminders = res.reminders;
+        })
+      });
+    }
+  });
 
-	$scope.submitNewReminder = function(newReminder){
-		var highestId = 10;
-		if($scope.count === 0){
-			$scope.reminders = [];
-		}
+  $scope.addNewReminder = function () {
+    $scope.addNewReminderVal = true;
+  };
 
-		angular.forEach($scope.reminders, function(val, key){
-			if(highestId < val.id){
-				highestId = val.id;
-			}
-		});
+  $scope.cancel = function () {
+    $scope.addNewReminderVal = false;
+  };
 
-		var reminderTimeEpoch = new Date();
+  $scope.submitNewReminder = function (newReminder) {
+    var highestId = 10;
+    if ($scope.count === 0) {
+      $scope.reminders = [];
+    }
 
-		var timeArray = newReminder.time.split(/[\s:]+/);
-		timeArray[0] = Number(timeArray[0]);
-		timeArray[1] = Number(timeArray[1]);
-		timeArray[2] = timeArray[2].toUpperCase();
+    angular.forEach($scope.reminders, function (val, key) {
+      if (highestId < val.id) {
+        highestId = val.id;
+      }
+    });
 
-		if( timeArray[0] === 12 && timeArray[2] === 'AM'){
-			reminderTimeEpoch.setHours(0);
-		}else if( timeArray[0] !== 12 && timeArray[2] === 'AM'){
-			reminderTimeEpoch.setHours(timeArray[0]);
-		}else if( timeArray[0] === 12 && timeArray[2] === 'PM'){
-			reminderTimeEpoch.setHours(timeArray[0]);
-		}else if( timeArray[0] !== 12 && timeArray[2] === 'PM'){
-			reminderTimeEpoch.setHours(timeArray[0] + 12);
-		}
-		
-		reminderTimeEpoch.setMinutes(timeArray[1]);
+    var reminderTimeEpoch = new Date();
 
-		var diff = (+reminderTimeEpoch) - (+new Date());
+    var timeArray = newReminder.time.split(/[\s:]+/);
+    timeArray[0] = Number(timeArray[0]);
+    timeArray[1] = Number(timeArray[1]);
+    timeArray[2] = timeArray[2].toUpperCase();
 
-		var newReminderObj = {
-			id : (+(new Date()) + highestId),
-			message : newReminder.description,
-			reminderTime : newReminder.time,
-			reminderTimeInEpoch : +reminderTimeEpoch,
-			currentTimeInEpoch : (+new Date()),
-			timeDifference : diff
-		};
+    if (timeArray[0] === 12 && timeArray[2] === 'AM') {
+      reminderTimeEpoch.setHours(0);
+    } else if (timeArray[0] !== 12 && timeArray[2] === 'AM') {
+      reminderTimeEpoch.setHours(timeArray[0]);
+    } else if (timeArray[0] === 12 && timeArray[2] === 'PM') {
+      reminderTimeEpoch.setHours(timeArray[0]);
+    } else if (timeArray[0] !== 12 && timeArray[2] === 'PM') {
+      reminderTimeEpoch.setHours(timeArray[0] + 12);
+    }
 
-		console.log('newReminderObj',newReminderObj);
+    reminderTimeEpoch.setMinutes(timeArray[1]);
 
-		if( newReminderObj.timeDifference < 0 ) {
-			showMessage('error','Time has already passed');
-		}else{
-			$scope.reminders.push(newReminderObj);
-			getterSetters.setValue('reminders',{'reminders': $scope.reminders}, function() {
-				showMessage('success','Reminder added successfully');
-				getterSetters.setValue('count', {'count':1}, function(res) {});
-			});
+    var diff = (+reminderTimeEpoch) - (+new Date());
 
-			$scope.newReminder = {};
-			$scope.addNewReminderVal = false;
-		}
-	};
+    var newReminderObj = {
+      id: (+(new Date()) + highestId),
+      message: newReminder.description,
+      reminderTime: newReminder.time,
+      reminderTimeInEpoch: +reminderTimeEpoch,
+      currentTimeInEpoch: (+new Date()),
+      timeDifference: diff
+    };
 
-	$scope.editReminder = function(reminder){
+    console.log('newReminderObj', newReminderObj);
 
-	};
+    if (newReminderObj.timeDifference < 0) {
+      showMessage('error', 'Time has already passed');
+    } else {
+      $scope.reminders.push(newReminderObj);
+      getterSetters.setValue('reminders', {'reminders': $scope.reminders}, function () {
+        showMessage('success', 'Reminder added successfully');
+        getterSetters.setValue('count', {'count': 1}, function (res) {
+        });
+      });
 
-	$scope.removeReminder = function(reminder){
-		var index = 0, count = 0;
-		angular.forEach($scope.reminders, function(val, key){
-			if(val.id === reminder.id){
-				index = count;
-			}
-			count += 1;
-		});
+      $scope.newReminder = {};
+      $scope.addNewReminderVal = false;
+    }
+  };
 
-		$scope.reminders.splice(index,1);
-		getterSetters.setValue('reminders', {reminders: $scope.reminders}, function() {
-			showMessage('success','Reminder removed successfully');
-			$scope.addNewReminderVal = false;
-			$scope.newReminder = {};
-		});
-	};
+  $scope.editReminder = function (reminder) {
 
-	function showMessage(type, msg){
-		console.log('in showMessage',type, msg)
-		$scope.messageClass = type + 'Msg';
-		$scope.errorMessage = msg;
-	}; 
-	function getNotification (type, msg, img) {
-		chrome.notifications.create(type,{
-			type: "basic",
-			title: "Alert",
-			message: msg,
-			iconUrl: img
-		},function(){});
-	}
+  };
 
-	function clearTheData () {
-		getterSetters.removeValue('reminders',function(){
-			document.getElementById("input_box_1").value = '';
-			getNotification('Success!', 'Data cleared successfully.', 'images/accept-32.png');
-		});
-	}
+  $scope.removeReminder = function (reminder) {
+    var index = 0, count = 0;
+    angular.forEach($scope.reminders, function (val, key) {
+      if (val.id === reminder.id) {
+        index = count;
+      }
+      count += 1;
+    });
 
+    $scope.reminders.splice(index, 1);
+    getterSetters.setValue('reminders', {reminders: $scope.reminders}, function () {
+      showMessage('success', 'Reminder removed successfully');
+      $scope.addNewReminderVal = false;
+      $scope.newReminder = {};
+    });
+  };
 
+  function showMessage(type, msg) {
+    console.log('in showMessage', type, msg)
+    $scope.messageClass = type + 'Msg';
+    $scope.errorMessage = msg;
+  };
+  function getNotification(type, msg, img) {
+    chrome.notifications.create(type, {
+      type: "basic",
+      title: "Alert",
+      message: msg,
+      iconUrl: img
+    }, function () {
+    });
+  }
 
-
-
-
-
-
+  function clearTheData() {
+    getterSetters.removeValue('reminders', function () {
+      document.getElementById("input_box_1").value = '';
+      getNotification('Success!', 'Data cleared successfully.', 'images/accept-32.png');
+    });
+  }
 
 
 // script to bg page communication method 1 START
