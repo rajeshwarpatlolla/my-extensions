@@ -11,10 +11,13 @@ chrome.alarms.onAlarm.addListener(function () {
 var setAlarm = function (x, callback) {
   callback(123);
 };
+
 var getAlarm = function (x, callback) {
 };
+
 var removeAlarm = function (x, callback) {
 };
+
 // chrome.alarms.create({when: Date.now()+5000});
 
 var count = '4';
