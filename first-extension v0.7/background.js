@@ -18,6 +18,7 @@ var getAlarm = function (x, callback) {
 var removeAlarm = function (x, callback) {
 };
 
+// Creates an alarm
 // chrome.alarms.create({when: Date.now()+5000});
 
 var count = '4';
