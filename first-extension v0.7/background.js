@@ -26,7 +26,6 @@ chrome.browserAction.setTitle({title: 'Remind Me'});
 chrome.browserAction.setBadgeText({text: count});
 chrome.browserAction.setBadgeBackgroundColor({color: [100, 100, 150, 255]});
 
-
 // ============================================================================
 // script to bg page communication method 1
 chrome.extension.onMessage.addListener(
