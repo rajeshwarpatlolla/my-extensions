@@ -22,6 +22,7 @@ var removeAlarm = function (x, callback) {
 // chrome.alarms.create({when: Date.now()+5000});
 
 var count = '4';
+//To set the title of the extension
 chrome.browserAction.setTitle({title: 'Remind Me'});
 chrome.browserAction.setBadgeText({text: count});
 chrome.browserAction.setBadgeBackgroundColor({color: [100, 100, 150, 255]});
