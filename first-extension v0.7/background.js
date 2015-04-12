@@ -18,6 +18,12 @@ var getAlarm = function (x, callback) {
 var removeAlarm = function (x, callback) {
 };
 
+//Chrome extensions alarm methods
+/*chrome.alarms.get(string name, function callback)
+chrome.alarms.getAll(function callback)
+chrome.alarms.clear(string name, function callback)
+chrome.alarms.clearAll(function callback)*/
+
 // Creates an alarm
 // chrome.alarms.create({when: Date.now()+5000});
 
