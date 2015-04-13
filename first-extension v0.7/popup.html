@@ -1,74 +1,73 @@
 <!DOCTYPE html>
 <html ng-app='myExtension'>
 <head>
-  <title>Popup</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
+	<title>Popup</title>
+	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body ng-controller='MainController'>
-<div class="parent-div">
-  <h3>Reminders <span ng-click="addNewReminder()"><img src="images/add-16.png" class="right btn-hover"
-                                                       title="Add new reminder"></span></h3>
-  <hr/>
-  <div class="{{messageClass}}" ng-bind="errorMessage"></div>
-  <div class="addNewReminderSection" ng-show='addNewReminderVal' id="addNewreminderDiv">
-    <form name="addNewForm">
-      <h4>Add new reminder</h4>
+	<div class="parent-div">
+		<h3>Reminders <span ng-click="addNewReminder()"><img src="images/add-16.png" class="right btn-hover"
+			title="Add new reminder"></span></h3>
+			<hr/>
+			<div class="{{messageClass}}" ng-bind="errorMessage"></div>
+			<div class="addNewReminderSection" ng-show='addNewReminderVal' id="addNewreminderDiv">
+				<form name="addNewForm">
+					<h4>Add new reminder</h4>
 
-      <div class="">
-        <label for="description" class="label">Message</label>
-        <textarea class="form-control overflow-x-hidden max-height-100px min-height-100px width-95p"
-                  placeholder="Enter description here" ng-model="newReminder.description" name="description"
-                  ng-minlength="2" ng-maxlength="200" required></textarea>
-        <span class="errorMsg"
-              ng-show="addNewForm.description.$dirty && (addNewForm.description.$error.required || addNewForm.description.$error.minlength || addNewForm.description.$error.maxlength)">Please enter text of 2 to 200 characters length.</span>
-      </div>
-      <div class="">
-        <label for="time" class="label">Time</label>
-        <input type="text" class="form-control width-95p" id="time" placeholder="HH:MM AM/PM"
-               ng-model="newReminder.time" name="time"
-               ng-pattern="/^(([0]?[0-9])|([1][0-2])):([0-5]?[0-9])(\s(AM|PM|am|pm))$/" required>
-        <span class="errorMsg"
-              ng-show="addNewForm.time.$dirty && (addNewForm.time.$error.required || addNewForm.time.$error.pattern)">Please enter the time in HH:MM AM/PM format.</span>
-      </div>
-      <button type="submit" class="btn margin-top-5" ng-click="submitNewReminder(newReminder)"
-              ng-disabled="!addNewForm.$valid" disabled ng-class="{disabledBtn : !addNewForm.$valid}">Add
-      </button>
-      <button type="button" class="btn margin-top-5" ng-click="cancel()">Cancel</button>
-    </form>
-    <hr/>
-  </div>
-  <div class="" ng-show='reminders.length == 0'>
-    <p> You dont have any Reminders </p>
+					<div class="">
+						<label for="description" class="label">Message</label>
+						<textarea class="form-control overflow-x-hidden max-height-100px min-height-100px width-95p" placeholder="Enter description here" ng-model="newReminder.description" name="description"
+						ng-minlength="2" ng-maxlength="200" required></textarea>
+						<span class="errorMsg"
+						ng-show="addNewForm.description.$dirty && (addNewForm.description.$error.required || addNewForm.description.$error.minlength || addNewForm.description.$error.maxlength)">Please enter text of 2 to 200 characters in length.</span>
+					</div>
+					<div class="">
+						<label for="time" class="label">Time</label>
+						<input type="text" class="form-control width-95p" id="time" placeholder="HH:MM AM/PM"
+						ng-model="newReminder.time" name="time"
+						ng-pattern="/^(([0]?[0-9])|([1][0-2])):([0-5]?[0-9])(\s(AM|PM|am|pm))$/" required>
+						<span class="errorMsg"
+						ng-show="addNewForm.time.$dirty && (addNewForm.time.$error.required || addNewForm.time.$error.pattern)">Please enter the time in HH:MM AM/PM format.</span>
+					</div>
+					<button type="submit" class="btn margin-top-5" ng-click="submitNewReminder(newReminder)"
+					ng-disabled="!addNewForm.$valid" disabled ng-class="{disabledBtn : !addNewForm.$valid}">Add
+				</button>
+				<button type="button" class="btn margin-top-5" ng-click="cancel()">Cancel</button>
+			</form>
+			<hr/>
+		</div>
+		<div class="" ng-show='reminders.length == 0'>
+			<p> You dont have any Reminders. </p>
 
-    <p ng-click="addNewReminder()"><a href="">Add New</a></p>
-  </div>
-  <div class="table" ng-show='reminders.length > 0'>
-    <div class="full-width bold-text table-heading">
-      <div class="width-60 padding-tb-5 table-cell">Description</div>
-      <div class="width-25 padding-tb-5 table-cell">Time</div>
-      <div class="width-15 padding-tb-5 table-cell no-right-border" colspan="2">Actions</div>
-    </div>
-    <div ng-repeat="reminder in reminders track by reminder.id" class="full-width table-row">
-      <div class="width-60 table-cell">{{reminder.message}}</div>
-      <div class="width-25 table-cell">{{reminder.reminderTime}}</div>
-      <div class="width-15 table-cell btn-hover no-right-border">
-        <img src="images/edit-16.png" title='Edit' ng-click="editReminder(reminder)">
-        <img src="images/delete-16.png" title='Delete' class="right" ng-click="removeReminder(reminder)">
-      </div>
-    </div>
-  </div>
-  <!-- commented as of now -->
-  <div ng-hide="true">
-    <div class="padding-tb-5"><input type="text" id="input_box_1" class="full-width"/></div>
-    <button id="save-btn" class="btn margin-top-5">Save</button>
-    <button id="clear-btn" class="btn margin-top-5">Clear</button>
-  </div>
-  <div>
-    <button id="get-all-reminders-btn" class="btn margin-top-5">Get All</button>
-  </div>
-  <!-- commented as of now -->
-  <script src="angular-1.3.14.js"></script>
-  <script src="popup.js"></script>
-</div>
+			<p ng-click="addNewReminder()"><a href="">Add New</a></p>
+		</div>
+		<div class="table" ng-show='reminders.length > 0'>
+			<div class="full-width bold-text table-heading">
+				<div class="width-60 padding-tb-5 table-cell">Description</div>
+				<div class="width-25 padding-tb-5 table-cell">Time</div>
+				<div class="width-15 padding-tb-5 table-cell no-right-border" colspan="2">Actions</div>
+			</div>
+			<div ng-repeat="reminder in reminders track by reminder.id" class="full-width table-row">
+				<div class="width-60 table-cell">{{reminder.message}}</div>
+				<div class="width-25 table-cell">{{reminder.reminderTime}}</div>
+				<div class="width-15 table-cell btn-hover no-right-border">
+					<img src="images/edit-16.png" title='Edit' ng-click="editReminder(reminder)">
+					<img src="images/delete-16.png" title='Delete' class="right" ng-click="removeReminder(reminder)">
+				</div>
+			</div>
+		</div>
+		<!-- commented as of now -->
+		<div ng-hide="true">
+			<div class="padding-tb-5"><input type="text" id="input_box_1" class="full-width"/></div>
+			<button id="save-btn" class="btn margin-top-5">Save</button>
+			<button id="clear-btn" class="btn margin-top-5">Clear</button>
+		</div>
+		<div>
+			<button id="get-all-reminders-btn" class="btn margin-top-5">Get All</button>
+		</div>
+		<!-- commented as of now -->
+		<script src="angular-1.3.14.js"></script>
+		<script src="popup.js"></script>
+	</div>
 </body>
 </html>
