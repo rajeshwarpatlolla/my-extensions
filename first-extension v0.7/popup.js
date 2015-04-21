@@ -44,7 +44,7 @@ app.controller('MainController', function ($scope) {
 
   var bgPage = chrome.extension.getBackgroundPage();
 
-  bgPage.setAlarm(2, function (res) {
+  /*bgPage.setAlarm(2, function (res) {
     console.log(res);
   });
   bgPage.getAlarm(2, function () {
@@ -52,7 +52,7 @@ app.controller('MainController', function ($scope) {
   });
   bgPage.removeAlarm(2, function () {
 
-  });
+  });*/
 
   getterSetters.getValue('count', function (res) {
     if (typeof res.count === 'undefined') {
